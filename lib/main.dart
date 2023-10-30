@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Conversor de Dinero',
+      title: 'Currency Converter',
       theme: ThemeData(
-        primaryColor: Colors.black,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: CurrencyConverter(),
+      home: const CurrencyConverter(title: 'Currency Converter'),
     );
   }
 }
 
 class CurrencyConverter extends StatefulWidget {
+  const CurrencyConverter({super.key, required this.title});
+
+  final String title;
+
   @override
-  _CurrencyConverterState createState() => _CurrencyConverterState();
+  State<CurrencyConverter> createState() => _CurrencyConverterState();
 }
 
 class _CurrencyConverterState extends State<CurrencyConverter> {
@@ -44,7 +51,8 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Conversor de Moneda'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
       ),
       body: Center(
         child: Column(
@@ -57,12 +65,12 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
                   amount = double.parse(value);
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Cantidad en pesos colombianos (COP)',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             DropdownButton<String>(
               value: selectedCurrency,
               onChanged: (value) {
@@ -77,15 +85,15 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: convertCurrency,
-              child: Text('Convertir'),
+              child: const Text('Convertir'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'la Cantidad Convertida a $selectedCurrency es de: ${convertedAmount.toStringAsFixed(2)} $selectedCurrency',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
